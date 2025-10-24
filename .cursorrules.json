@@ -1,0 +1,10 @@
+{
+  "//": "Cursor workspace exclusions",
+  "exclude": [
+    "**/.env*",
+    "**/secrets/**",
+    "**/config/private/**",
+    "**/*.pem",
+    "**/*.key"
+  ]
+}

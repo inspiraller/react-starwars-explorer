@@ -1,0 +1,35 @@
+{
+  "page": {
+    "homepage": {
+      "head": {
+        "title": "Starwars Galaxy",
+        "description": "Starwars Galaxy",
+        "og": {
+          "title": "Starwars Galaxy",
+          "description": "Starwars Galaxy"
+        }
+      },
+      "body": {
+        "h1": "Starwars Galaxy"
+      }
+    },
+    "people": {
+      "head": {
+        "title": "Starwars Galaxy - People",
+        "description": "Starwars Galaxy - People",
+        "og": {
+          "title": "Starwars Galaxy - People",
+          "description": "Starwars Galaxy - People"
+        }
+      },
+      "body": {
+        "h1": "People"
+      }
+    }
+  },
+  "keys": {
+    "errors": {
+      "unexpected": "An unexpected error occurred"
+    }
+  }
+}
