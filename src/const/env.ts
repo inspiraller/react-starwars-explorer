@@ -4,7 +4,7 @@ import { z } from 'zod';
 export const zodSchema = z.object({
   VITE_API_BASE_URL: z.string(),
   VITE_API_PROXY: z.string(),
-  MODE: z.enum(['development', 'production']),
+  MODE: z.enum(['development', 'production', 'test']),
 });
 
 const validateEnv = () => {
