@@ -30,19 +30,13 @@ const HomePage = () => {
         <Typography variant='h2' component='h1' fontWeight='bold' gutterBottom>
           {t('page.homepage.body.h1')}
         </Typography>
-
-        {/* Navigation link */}
-        <nav>
-          <Link
-            component={RouterLink}
-            to={routePaths.people || '/people'}
-            aria-label={t('People')}
-            underline='hover'
-            color='primary'
-          >
-            {t('People')}
-          </Link>
-        </nav>
+        <p>
+          Welcome to the Star Wars Galaxy explorer. Here you can discover the
+          wonders of the inhabitants of the galaxy. Click on the navigation
+          above to view the different areas of this website. Within each seach
+          you can search for a favourite person, name, species, vehicle to learn
+          more about them.
+        </p>
       </Box>
     </>
   );

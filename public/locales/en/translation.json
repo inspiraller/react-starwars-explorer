@@ -25,6 +25,19 @@
       "body": {
         "h1": "People"
       }
+    },
+    "star-ships": {
+      "head": {
+        "title": "Starwars Galaxy - Starships",
+        "description": "Starwars Galaxy - Starships",
+        "og": {
+          "title": "Starwars Galaxy - Starships",
+          "description": "Starwars Galaxy - Starships"
+        }
+      },
+      "body": {
+        "h1": "Starships"
+      }
     }
   },
   "keys": {

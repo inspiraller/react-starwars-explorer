@@ -53,30 +53,29 @@ export const lightTheme = createTheme({
     },
   },
 });
-
 export const darkTheme = createTheme({
   ...baseTheme,
   palette: {
     mode: 'dark',
     background: {
-      default: '#0b0c10', // deep space
-      paper: '#1f2833',
+      default: '#121212', // Very dark gray background
+      paper: '#1e1e1e', // Slightly lighter dark gray paper/card background
     },
     primary: {
-      main: '#00B0FF', // glowing blue saber
-      light: '#69e2ff',
-      dark: '#0081cb',
-      contrastText: '#000',
+      main: '#e0e0e0', // Light gray for primary actions/buttons
+      light: '#ffffff',
+      dark: '#b0b0b0',
+      contrastText: '#000', // Black text on light primary
     },
     secondary: {
-      main: '#FFD700', // golden glow
-      light: '#ffef62',
-      dark: '#c7a500',
-      contrastText: '#000',
+      main: '#a0a0a0', // Medium light gray for secondary actions
+      light: '#cccccc',
+      dark: '#707070',
+      contrastText: '#000', // Black text on medium secondary
     },
     text: {
-      primary: '#e0e0e0',
-      secondary: '#b0b0b0',
+      primary: '#ffffff', // White for main text
+      secondary: '#e0e0e0', // Light gray for secondary text
     },
   },
 });

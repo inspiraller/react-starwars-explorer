@@ -21,7 +21,7 @@ const ThemeModeContext = createContext<ThemeContextValue>({
 export const useThemeMode = () => useContext(ThemeModeContext);
 
 export const CustomThemeProvider = ({ children }: CustomThemeProviderProps) => {
-  const [mode, setMode] = useState<'light' | 'dark'>('light');
+  const [mode, setMode] = useState<'light' | 'dark'>('dark');
 
   const toggleMode = () =>
     setMode((prev) => (prev === 'light' ? 'dark' : 'light'));
