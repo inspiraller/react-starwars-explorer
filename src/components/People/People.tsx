@@ -1,8 +1,7 @@
-import { useGetPeople } from '@/service/usePeople';
+import useGetAllPeople from '@/context/Tanstack/usePeople/useGetAll';
 
 export const People = () => {
-  const { data, isSuccess, error, isPending } = useGetPeople();
+  useGetAllPeople(); // will populate zustand people
 
-  console.log('data=', data);
   return <></>;
 };
