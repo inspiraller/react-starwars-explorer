@@ -44,7 +44,7 @@ const Header = () => {
         <Link
           component={RouterLink}
           to={routePaths.people}
-          color='primary'
+          color='var(--link-default)'
           underline='hover'
           pr={'1rem'}
         >
@@ -54,7 +54,7 @@ const Header = () => {
         <Link
           component={RouterLink}
           to={routePaths['starships']}
-          color='primary'
+          color='var(--link-default)'
           underline='hover'
           pr={'1rem'}
         >
@@ -64,7 +64,7 @@ const Header = () => {
         <Link
           component={RouterLink}
           to={routePaths['vehicles']}
-          color='primary'
+          color='var(--link-default)'
           underline='hover'
           pr={'1rem'}
         >
@@ -73,7 +73,7 @@ const Header = () => {
         <Link
           component={RouterLink}
           to={routePaths['species']}
-          color='primary'
+          color='var(--link-default)'
           underline='hover'
           pr={'1rem'}
         >
@@ -82,7 +82,7 @@ const Header = () => {
         <Link
           component={RouterLink}
           to={routePaths['planets']}
-          color='primary'
+          color='var(--link-default)'
           underline='hover'
           pr={'1rem'}
         >
@@ -91,7 +91,7 @@ const Header = () => {
         <Link
           component={RouterLink}
           to={routePaths['films']}
-          color='primary'
+          color='var(--link-default)'
           underline='hover'
           pr={'1rem'}
         >

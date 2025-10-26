@@ -1,5 +1,6 @@
 import { Card, CardContent, Typography, CardHeader, Box } from '@mui/material';
 import React from 'react';
+import RenderValuesAsLinks from './RenderValueAsLink';
 
 interface Props<Details> {
   details: Omit<Details, 'name' | 'title'>;
@@ -45,7 +46,7 @@ const CardComponent = <Details,>({ details, name }: Props<Details>) => {
               </Typography>
 
               <Typography component={'dd'} variant='body2'>
-                {displayValue as string}
+                <RenderValuesAsLinks displayValue={String(displayValue)} />
               </Typography>
             </Box>
           );
