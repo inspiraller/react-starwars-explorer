@@ -11,11 +11,13 @@ const CardPersonComponent = ({ person, name }: Props) => {
   if (!person) return null;
 
   return (
-    <Card sx={{ height: '100%' }}>
+    <Card sx={{ height: '100%' }} component={'article'}>
       <CardHeader
+        component={'header'}
         title={name}
         titleTypographyProps={{
           variant: 'h6',
+          component: 'h3',
           sx: {
             px: '2rem',
             color: 'var(--text-default-color)',

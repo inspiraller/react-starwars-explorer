@@ -10,7 +10,7 @@ import translation from '@public/locales/en/translation.json' assert { type: 'js
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-test('Homepage - accessibility', async ({ page }) => {
+test('People ', async ({ page }) => {
   await page.goto('/');
 
   await expect(page.getByText(translation.page.homepage.body.h1)).toBeVisible();

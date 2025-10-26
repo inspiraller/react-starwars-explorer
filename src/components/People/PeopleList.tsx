@@ -8,6 +8,7 @@ import {
   InputLabel,
   Box,
   CircularProgress,
+  Typography,
 } from '@mui/material';
 
 import { FormError } from '../Error/FormError';
@@ -30,15 +31,19 @@ const PeopleList = () => {
     totalPages,
     page,
     isMobile,
+    totalCount,
   } = usePeopleList();
 
   return (
-    <Box pt={'2rem'}>
+    <Box pt={'2rem'} component={'section'}>
       {isFetching ? <CircularProgress /> : null}
       {error ? (
         <FormError>{t(`Error displaying this page ${1}`)}</FormError>
       ) : null}
       <Activity mode={isDisplay ? 'visible' : 'hidden'}>
+        <Typography component={'h2'} fontSize={'2rem'} mb={'2rem'}>
+          {t('Results')} ({totalCount})
+        </Typography>
         {/* Controls */}
         <Box
           sx={{

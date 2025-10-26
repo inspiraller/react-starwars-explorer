@@ -55,6 +55,9 @@ const usePeopleList = () => {
 
   const isDisplay = peopleEntries.length > 0 && !isFetching;
 
+
+  const totalCount = data?.count;
+
   return {
     isDisplay,
     peopleEntries,
@@ -64,6 +67,7 @@ const usePeopleList = () => {
     isMobile,
     perPage,
     page,
+    totalCount,
     handlePageChange,
     handlePerPageChange,
   };
