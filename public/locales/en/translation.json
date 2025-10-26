@@ -77,6 +77,19 @@
       "body": {
         "h1": "Films"
       }
+    },
+    "planets": {
+      "head": {
+        "title": "Starwars Galaxy - Planets",
+        "description": "Starwars Galaxy - Planets",
+        "og": {
+          "title": "Starwars Galaxy - Planets",
+          "description": "Starwars Galaxy - Planets"
+        }
+      },
+      "body": {
+        "h1": "Planets"
+      }
     }
   },
   "keys": {

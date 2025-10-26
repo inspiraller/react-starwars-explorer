@@ -33,4 +33,8 @@ export const AppRoutes: IRoutes[] = [
     path: '/films',
     element: lazy(() => import('@/pages/Films')),
   },
+  {
+    path: '/planets',
+    element: lazy(() => import('@/pages/Planets')),
+  },
 ];

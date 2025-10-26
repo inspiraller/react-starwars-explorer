@@ -5,10 +5,7 @@ import Autocomplete, {
 } from '@/components/Autocomplete/Autocomplete';
 import useGetAllSpecies from '@/context/Tanstack/useSpecies/useGetAllSpecies';
 
-export const SpeciesAutocomplete = ({
-  nameValue,
-  setNameValue,
-}: SetValues) => {
+export const SpeciesAutocomplete = ({ nameValue, setNameValue }: SetValues) => {
   const { isFetching, error, isSuccess } = useGetAllSpecies();
   const { speciesNames } = useSpeciesStore();
 

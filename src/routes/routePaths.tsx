@@ -5,4 +5,5 @@ export const routePaths = {
   vehicles: '/vehicles',
   species: '/species',
   films: '/films',
+  planets: '/planets',
 } as const;
