@@ -27,7 +27,13 @@ const PeoplePage = () => {
 
       <Box component='main' p={2}>
         {/* Main heading */}
-        <Typography variant='h2' component='h1' fontWeight='bold' gutterBottom>
+        {/* Main heading */}
+        <Typography
+          component='h1'
+          fontWeight='bold'
+          fontSize={'3rem'}
+          mb={'1rem'}
+        >
           {t('page.people.body.h1')}
         </Typography>
 

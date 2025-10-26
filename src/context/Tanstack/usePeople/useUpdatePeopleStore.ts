@@ -1,7 +1,7 @@
 import { ResponsePeople } from '@/types/Person';
-import { getPersonsArray } from './getPersonsArray';
+import { getPersonsArray } from './util/getPersonsArray';
 import { usePeopleStore } from '@/store/zustand/people/people';
-import createPeopleObjects from './createPeopleObjects';
+import createPeopleObjects from './util/createPeopleObjects';
 
 export const useUpdatePeopleStore = () => {
   const { updatePeopleNames, updatePeopleObjects } = usePeopleStore();

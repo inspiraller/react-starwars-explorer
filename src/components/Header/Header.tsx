@@ -1,12 +1,9 @@
 import { useTranslation } from 'react-i18next';
 
-import { AppBar, Button, Toolbar, Typography, Link, Box } from '@mui/material';
-import { useThemeMode } from '@/context/Theme/CustomThemeProvider';
+import { Toolbar, Typography, Link, Box } from '@mui/material';
 
 import { Link as RouterLink } from 'react-router-dom';
 import { routePaths } from '@/routes/routePaths';
-
-import { BsMoonFill, BsMoon } from 'react-icons/bs';
 
 export const Loader = () => {
   const { t } = useTranslation();
@@ -22,6 +19,7 @@ const Header = () => {
 
   return (
     <Toolbar
+      component={'header'}
       sx={{
         justifyContent: 'space-between',
         dislay: 'flex',
@@ -38,7 +36,7 @@ const Header = () => {
         <Typography>{t('Star Wars Galaxy')}</Typography>
       </Link>
 
-      <Box display={'flex'} gap={'1rem'}>
+      <Box display={'flex'} gap={'1rem'} component={'nav'}>
         <Link
           component={RouterLink}
           to={routePaths.people}

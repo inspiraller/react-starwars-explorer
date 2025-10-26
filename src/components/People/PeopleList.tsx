@@ -1,4 +1,4 @@
-import React, { useState, Activity } from 'react';
+import { Activity } from 'react';
 import {
   Grid,
   Pagination,
@@ -7,63 +7,30 @@ import {
   FormControl,
   InputLabel,
   Box,
-  CircularProgress, // Import CardHeader
+  CircularProgress,
 } from '@mui/material';
-import type { PeopleObjects, ResponsePeople } from '@/types/Person';
 
 import { FormError } from '../Error/FormError';
 import { useTranslation } from 'react-i18next';
-import useGetPage from '@/context/Tanstack/dynamic/useGetPage';
-import {
-  DISPLAY_ITEMS_PER_PAGE,
-  URL_API_PATH,
-} from '@/context/Tanstack/usePeople/const';
-import { getTotalPages } from '@/context/Tanstack/dynamic/getTotalPages';
 
 import CardPerson from './CardPerson';
-import { useUpdatePeopleStore } from '@/context/Tanstack/usePeople/useUpdatePeopleStore';
-import { usePeopleStore } from '@/store/zustand/people/people';
-import createPeopleObjects from '@/context/Tanstack/usePeople/createPeopleObjects';
+
+import usePeopleList from './usePeopleList';
 
 const PeopleList = () => {
   const { t } = useTranslation();
-  const { callback } = useUpdatePeopleStore();
-
-  // local states
-  const [page, setPage] = useState(1);
-  const [perPage, setPerPage] = useState(DISPLAY_ITEMS_PER_PAGE);
-
-  const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
-    setPage(value);
-  };
-
-  const handlePerPageChange = (
-    event: React.ChangeEvent<{ value: unknown }>,
-  ) => {
-    setPerPage(event.target.value as number);
-    setPage(1); // reset to first page when changing count
-  };
-
-  // Tanstack ... get data.
-  const { isFetching, error, data } = useGetPage<ResponsePeople>({
-    url: URL_API_PATH,
+  const {
+    isFetching,
+    error,
+    isDisplay,
+    perPage,
+    peopleEntries,
+    handlePageChange,
+    handlePerPageChange,
+    totalPages,
     page,
-    callback,
-  });
-
-  const totalPages = data
-    ? getTotalPages(data?.count, DISPLAY_ITEMS_PER_PAGE)
-    : 0;
-
-  const pagePeopleObjects = data
-    ? (createPeopleObjects(data) as PeopleObjects)
-    : {};
-
-  const peopleEntries = pagePeopleObjects
-    ? Object.entries(pagePeopleObjects)
-    : [];
-
-  const isDisplay = peopleEntries.length > 0 && !isFetching;
+    isMobile,
+  } = usePeopleList();
 
   return (
     <Box pt={'2rem'}>
@@ -76,12 +43,15 @@ const PeopleList = () => {
         <Box
           sx={{
             display: 'flex',
-            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            justifyContent: isMobile ? 'start' : 'space-between',
             alignItems: 'center',
             mb: 2,
+            width: isMobile ? '100%' : 'auto',
+            gap: '1rem',
           }}
         >
-          <FormControl size='small' sx={{ minWidth: 120 }}>
+          <FormControl size='small' sx={{ width: isMobile ? '100%' : '12rem' }}>
             <InputLabel id='per-page-label'>Per page</InputLabel>
             <Select
               labelId='per-page-label'
@@ -101,6 +71,8 @@ const PeopleList = () => {
             page={page}
             onChange={handlePageChange}
             color='primary'
+            siblingCount={isMobile ? 0 : 1}
+            boundaryCount={isMobile ? 1 : 2}
           />
         </Box>
 
