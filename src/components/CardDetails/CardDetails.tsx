@@ -2,7 +2,7 @@ import { Card, CardContent, Typography, CardHeader, Box } from '@mui/material';
 import React from 'react';
 
 interface Props<Details> {
-  details: Omit<Details, 'name'>;
+  details: Omit<Details, 'name' | 'title'>;
   name: string | null;
 }
 

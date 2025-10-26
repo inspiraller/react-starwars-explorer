@@ -2,7 +2,7 @@ import { axiosApi } from '@/util/axiosApi';
 
 export interface Request {
   url: string;
-  propsQueryString: Record<string, string | number | boolean>;
+  propsQueryString?: Record<string, string | number | boolean>;
 }
 
 export const axGet = <Response>({ url, propsQueryString }: Request) => {

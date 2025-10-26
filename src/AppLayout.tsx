@@ -10,7 +10,7 @@ export const Loader = () => {
   const { t } = useTranslation();
   return (
     <main>
-      <Typography variant='h1' textAlign={'center'}>
+      <Typography variant='h1' textAlign={'center'} fontSize={'2rem'}>
         {t('Loading')}
       </Typography>
       <CircularProgress />
