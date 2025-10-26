@@ -2,19 +2,19 @@ import useGetAllPages from '../dynamic/useGetAllPages';
 import useGetFirstPage from '../dynamic/useGetFirstPage';
 import { DISPLAY_ITEMS_PER_PAGE } from '../dynamic/util/const';
 
-import { ResponsePeople } from '@/types/Person';
+import { ResponseStarships } from '@/types/Starship';
 import { getTotalPages } from '../dynamic/getTotalPages';
 
-import { useUpdatePeopleStore } from './useUpdatePeopleStore';
+import { useUpdateStarshipsStore } from './useUpdateStarshipsStore';
 import { URL_API_PATH } from './const';
 
 const url = URL_API_PATH;
 
-const useGetAllPeople = () => {
-  const { callback } = useUpdatePeopleStore();
+const useGetAllStarships = () => {
+  const { callback } = useUpdateStarshipsStore();
 
   // First, get the initial page to determine total count
-  const { data: dataFirstPage } = useGetFirstPage<ResponsePeople>({
+  const { data: dataFirstPage } = useGetFirstPage<ResponseStarships>({
     url,
     callback,
   });
@@ -25,7 +25,7 @@ const useGetAllPeople = () => {
     : 0;
 
   // Create queries for all pages
-  const results = useGetAllPages<ResponsePeople>({
+  const results = useGetAllPages<ResponseStarships>({
     url,
     totalPages,
     callback,
@@ -46,4 +46,4 @@ const useGetAllPeople = () => {
   };
 };
 
-export default useGetAllPeople;
+export default useGetAllStarships;

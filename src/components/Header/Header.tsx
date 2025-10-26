@@ -48,7 +48,7 @@ const Header = () => {
 
         <Link
           component={RouterLink}
-          to={routePaths['star-ships']}
+          to={routePaths['starships']}
           color='primary'
           underline='hover'
         >

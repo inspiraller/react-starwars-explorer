@@ -10,29 +10,29 @@ import {
   CircularProgress,
   Typography,
 } from '@mui/material';
-
-import { FormError } from '../Error/FormError';
 import { useTranslation } from 'react-i18next';
 
-import { Person } from '@/types/Person';
-import usePeopleList from './usePeopleList';
-import CardDetails from '../CardDetails/CardDetails';
+import { FormError } from '@/components/Error/FormError';
 
-const PeopleList = () => {
+import CardDetails from '@/components/CardDetails/CardDetails';
+import useStarshipsList from './useStarshipsList';
+import { Starship } from '@/types/Starship';
+
+const StarshipsList = () => {
   const { t } = useTranslation();
   const {
     isFetching,
     error,
     isDisplay,
     perPage,
-    peopleEntries,
+    starshipsEntries,
     handlePageChange,
     handlePerPageChange,
     totalPages,
     page,
     isMobile,
     totalCount,
-  } = usePeopleList();
+  } = useStarshipsList();
 
   return (
     <Box pt={'2rem'} component={'section'}>
@@ -83,9 +83,9 @@ const PeopleList = () => {
 
         {/* Cards */}
         <Grid container spacing={2}>
-          {peopleEntries.map(([key, person]) => (
+          {starshipsEntries.map(([key, starship]) => (
             <Grid item xs={12} md={6} lg={4} key={key}>
-              <CardDetails<Person> details={person} name={key} />
+              <CardDetails<Starship> details={starship} name={key} />
             </Grid>
           ))}
         </Grid>
@@ -106,4 +106,4 @@ const PeopleList = () => {
   );
 };
 
-export default PeopleList;
+export default StarshipsList;

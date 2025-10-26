@@ -1,7 +1,7 @@
-import { ResponsePeople } from '@/types/Person';
-import { getPersonsArray } from './util/getPersonsArray';
+import { PeopleObjects, ResponsePeople } from '@/types/Person';
+import getNamesArray from '../dynamic/util/getNamesArray';
 import { usePeopleStore } from '@/store/zustand/people/people';
-import createPeopleObjects from './util/createPeopleObjects';
+import createDetailObjects from '../dynamic/util/createDetailObjects';
 
 export const useUpdatePeopleStore = () => {
   const { updatePeopleNames, updatePeopleObjects } = usePeopleStore();
@@ -9,9 +9,9 @@ export const useUpdatePeopleStore = () => {
   const callback = (response: ResponsePeople): ResponsePeople => {
     // On callback - CREATE zustand store of names
     const first = [response];
-    const names = getPersonsArray(first) as string[];
+    const names = getNamesArray(first) as string[];
     updatePeopleNames(names);
-    const peopleObjects = createPeopleObjects(response);
+    const peopleObjects = createDetailObjects<PeopleObjects>(response);
     if (peopleObjects) {
       updatePeopleObjects(peopleObjects);
     }
