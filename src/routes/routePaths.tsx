@@ -6,4 +6,10 @@ export const routePaths = {
   species: '/species',
   films: '/films',
   planets: '/planets',
+  'people/:id': '/people/:id',
+  'starships/:id': '/starships/:id',
+  'vehicles/:id': '/vehicles/:id',
+  'species/:id': '/species/:id',
+  'films/:id': '/films/:id',
+  'planets/:id': '/planets/:id',
 } as const;
