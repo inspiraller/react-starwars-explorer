@@ -17,7 +17,7 @@ export interface SetValues {
   nameValue: string | null;
 }
 interface Props extends SetValues {
-  type: 'Person' | 'Starship' | 'Vehicle' | 'Species';
+  type: 'Person' | 'Starship' | 'Vehicle' | 'Specie' | 'Planet';
   isFetching?: boolean;
   isSuccess?: boolean;
   error?: UseQueryResult<any, Error> | undefined;

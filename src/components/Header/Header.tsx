@@ -24,24 +24,29 @@ const Header = () => {
         justifyContent: 'space-between',
         dislay: 'flex',
         backgroundColor: 'var(--bg-default)',
+        p: '2rem',
+        alignItems: 'start',
       }}
     >
       <Link
         component={RouterLink}
         to={routePaths.homepage}
-        color='primary'
+        color='white'
         underline='hover'
         variant='h6'
+        minWidth='14rem'
+        textTransform={'uppercase'}
       >
         <Typography>{t('Star Wars Galaxy')}</Typography>
       </Link>
 
-      <Box display={'flex'} gap={'1rem'} component={'nav'}>
+      <Box display={'flex'} component={'nav'} flexWrap={'wrap'}>
         <Link
           component={RouterLink}
           to={routePaths.people}
           color='primary'
           underline='hover'
+          pr={'1rem'}
         >
           {t('People')}
         </Link>
@@ -51,6 +56,7 @@ const Header = () => {
           to={routePaths['starships']}
           color='primary'
           underline='hover'
+          pr={'1rem'}
         >
           {t('Starships')}
         </Link>
@@ -60,6 +66,7 @@ const Header = () => {
           to={routePaths['vehicles']}
           color='primary'
           underline='hover'
+          pr={'1rem'}
         >
           {t('Vehicles')}
         </Link>
@@ -68,15 +75,25 @@ const Header = () => {
           to={routePaths['species']}
           color='primary'
           underline='hover'
+          pr={'1rem'}
         >
           {t('Species')}
         </Link>
-
+        <Link
+          component={RouterLink}
+          to={routePaths['planets']}
+          color='primary'
+          underline='hover'
+          pr={'1rem'}
+        >
+          {t('Planets')}
+        </Link>
         <Link
           component={RouterLink}
           to={routePaths['films']}
           color='primary'
           underline='hover'
+          pr={'1rem'}
         >
           {t('Films')}
         </Link>
