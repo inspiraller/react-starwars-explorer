@@ -2,6 +2,10 @@ import { useQueries, UseQueryResult } from '@tanstack/react-query';
 
 import { axGet } from './axGet';
 
+import { env } from '@/const/env';
+
+const { VITE_API_SWAPI_URL } = env;
+
 // Prevent this use hook from making more than 10 consecutive requests.
 
 export interface Props<Response> {
@@ -23,7 +27,7 @@ const useGetPageRange = <Response>({
     queries:
       toPage >= fromPage
         ? Array.from({ length: toPage - fromPage + 1 }, (_, i) => ({
-            queryKey: [url, fromPage + i],
+            queryKey: [VITE_API_SWAPI_URL, url, fromPage + i],
             queryFn: () =>
               axGet<Response>({
                 url,

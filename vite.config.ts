@@ -8,12 +8,12 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), 'VITE_');
 
   const VITE_PORT = env.VITE_PORT;
-  const VITE_API_BASE_URL = env.VITE_API_BASE_URL;
+  const VITE_API_SWAPI_URL = env.VITE_API_SWAPI_URL;
   const VITE_API_PROXY = env.VITE_API_PROXY;
 
   return {
     define: {
-      // Replace %VITE_API_BASE_URL% in index.html
+      // Replace %VITE_API_SWAPI_URL% in index.html
       'process.env': env,
     },
     plugins: [
@@ -63,7 +63,7 @@ export default defineConfig(({ mode }) => {
       strictPort: true,
       proxy: {
         [VITE_API_PROXY]: {
-          target: VITE_API_BASE_URL,
+          target: VITE_API_SWAPI_URL,
           changeOrigin: true,
           secure: false,
           rewrite: (path: string) => path.replace(/^\/api/, ''), // remove /api

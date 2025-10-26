@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-
 import { axGet } from './axGet';
+import { env } from '@/const/env';
+
+const { VITE_API_SWAPI_URL } = env;
 
 interface Props<Response> {
   url: string;
@@ -11,7 +13,7 @@ const useGetFirstPage = <Response>({
   callback = (results) => results,
 }: Props<Response>) =>
   useQuery<Response, Error>({
-    queryKey: [url, 1],
+    queryKey: [VITE_API_SWAPI_URL, url, 1],
     queryFn: () =>
       axGet<Response>({
         url,

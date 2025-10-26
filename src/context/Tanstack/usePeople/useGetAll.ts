@@ -7,18 +7,19 @@ import { getPersonsArray } from './getPersonsArray';
 const url = URL_API_PATH;
 
 const useGetAllPeople = () => {
-  const { createPeople, updatePeople } = usePeopleStore();
+  const { updatePeople } = usePeopleStore();
 
+  const callback = (response: ResponsePeople) => {
+    // On callback - CREATE zustand store of names
+    const first = [response];
+    const names = getPersonsArray(first) as string[];
+    updatePeople(names);
+    return response;
+  };
   // First, get the initial page to determine total count
   const { data: dataFirstPage } = useGetFirstPage<ResponsePeople>({
     url,
-    callback: (response) => {
-      // On callback - CREATE zustand store of names
-      const first = [response];
-      const names = getPersonsArray(first) as string[];
-      createPeople(names);
-      return response;
-    },
+    callback,
   });
 
   // Calculate total pages based on count (assuming 10 items per page for SWAPI)
@@ -30,13 +31,7 @@ const useGetAllPeople = () => {
   const results = useGetAllPages<ResponsePeople>({
     url,
     totalPages,
-    callback: (response) => {
-      // on each page callback, UPDATE zustand with more names.
-      const each = [response];
-      const names = getPersonsArray(each) as string[];
-      updatePeople(names);
-      return response;
-    },
+    callback,
   });
 
   // Wait for all queries to be successful
