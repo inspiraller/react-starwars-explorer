@@ -3,18 +3,18 @@ import {
   useTheme,
   useMediaQuery, // Import CardHeader
 } from '@mui/material';
-import type { PeopleObjects, ResponsePeople } from '@/types/Person';
+import type { StarshipsObjects, ResponseStarships } from '@/types/Starship';
 
 import useGetPage from '@/context/Tanstack/dynamic/useGetPage';
 import { DISPLAY_ITEMS_PER_PAGE } from '@/context/Tanstack/dynamic/util/const';
 import { getTotalPages } from '@/context/Tanstack/dynamic/getTotalPages';
 
-import { useUpdatePeopleStore } from '@/context/Tanstack/usePeople/useUpdatePeopleStore';
+import { useUpdateStarshipsStore } from '@/context/Tanstack/useStarships/useUpdateStarshipsStore';
 import createDetailObjects from '@/context/Tanstack/dynamic/util/createDetailObjects';
-import { URL_API_PATH } from '@/context/Tanstack/usePeople/const';
+import { URL_API_PATH } from '@/context/Tanstack/useStarships/const';
 
-const usePeopleList = () => {
-  const { callback } = useUpdatePeopleStore();
+const useStarshipsList = () => {
+  const { callback } = useUpdateStarshipsStore();
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -33,7 +33,7 @@ const usePeopleList = () => {
   };
 
   // Tanstack ... get data.
-  const { isFetching, error, data } = useGetPage<ResponsePeople>({
+  const { isFetching, error, data } = useGetPage<ResponseStarships>({
     url: URL_API_PATH,
     page,
     callback,
@@ -43,21 +43,21 @@ const usePeopleList = () => {
     ? getTotalPages(data?.count, DISPLAY_ITEMS_PER_PAGE)
     : 0;
 
-  const pagePeopleObjects = data
-    ? (createDetailObjects(data) as PeopleObjects)
+  const pageStarshipsObjects = data
+    ? (createDetailObjects(data) as StarshipsObjects)
     : {};
 
-  const peopleEntries = pagePeopleObjects
-    ? Object.entries(pagePeopleObjects)
+  const starshipsEntries = pageStarshipsObjects
+    ? Object.entries(pageStarshipsObjects)
     : [];
 
-  const isDisplay = peopleEntries.length > 0 && !isFetching;
+  const isDisplay = starshipsEntries.length > 0 && !isFetching;
 
   const totalCount = data?.count;
 
   return {
     isDisplay,
-    peopleEntries,
+    starshipsEntries,
     totalPages,
     error,
     isFetching,
@@ -70,4 +70,4 @@ const usePeopleList = () => {
   };
 };
 
-export default usePeopleList;
+export default useStarshipsList;

@@ -1,14 +1,14 @@
 import { Activity } from 'react';
 
-import PeopleList from './PeopleList';
-import { PeopleAutocomplete } from './PeopleAutoComplete';
+import StarshipsList from './StarshipsList';
+import { StarshipsAutocomplete } from './StarshipsAutoComplete';
 
-import { usePeopleStore } from '@/store/zustand/people/people';
+import { useStarshipsStore } from '@/store/zustand/starships/starships';
 import { useSearchParams } from 'react-router-dom';
 import CardDetails from '@/components/CardDetails/CardDetails';
-import { Person } from '@/types/Person';
+import { Starship } from '@/types/Starship';
 
-export const People = () => {
+export const Starships = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const nameValue = searchParams.get('name'); // current value
@@ -24,17 +24,20 @@ export const People = () => {
     setSearchParams(params); // updates URL without reload
   };
 
-  const { peopleObjects } = usePeopleStore();
-  const person = peopleObjects[nameValue as keyof typeof peopleObjects];
+  const { starshipsObjects } = useStarshipsStore();
+  const starship = starshipsObjects[nameValue as keyof typeof starshipsObjects];
 
   return (
     <>
-      <PeopleAutocomplete nameValue={nameValue} setNameValue={setNameValue} />
-      <Activity mode={nameValue && person ? 'visible' : 'hidden'}>
-        <CardDetails<Person> name={nameValue} details={person} />
+      <StarshipsAutocomplete
+        nameValue={nameValue}
+        setNameValue={setNameValue}
+      />
+      <Activity mode={nameValue && starship ? 'visible' : 'hidden'}>
+        <CardDetails<Starship> name={nameValue} details={starship} />
       </Activity>
       <Activity mode={nameValue ? 'hidden' : 'visible'}>
-        <PeopleList />
+        <StarshipsList />
       </Activity>
     </>
   );

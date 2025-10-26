@@ -1,14 +1,13 @@
-import React from 'react';
 import { Card, CardContent, Typography, CardHeader, Box } from '@mui/material';
-import { Person } from '@/types/Person';
+import React from 'react';
 
-interface Props {
-  person: Omit<Person, 'name'>;
+interface Props<Details> {
+  details: Omit<Details, 'name'>;
   name: string | null;
 }
 
-const CardPersonComponent = ({ person, name }: Props) => {
-  if (!person) return null;
+const CardComponent = <Details,>({ details, name }: Props<Details>) => {
+  if (!details) return null;
 
   return (
     <Card sx={{ height: '100%' }} component={'article'}>
@@ -28,7 +27,7 @@ const CardPersonComponent = ({ person, name }: Props) => {
       />
 
       <CardContent>
-        {Object.entries(person).map(([k, v]) => {
+        {Object.entries(details).map(([k, v]) => {
           if (k === 'name') return null;
           const displayValue = Array.isArray(v) ? v.join(', ') : v;
           return (
@@ -46,7 +45,7 @@ const CardPersonComponent = ({ person, name }: Props) => {
               </Typography>
 
               <Typography component={'dd'} variant='body2'>
-                {displayValue}
+                {displayValue as string}
               </Typography>
             </Box>
           );
@@ -57,9 +56,13 @@ const CardPersonComponent = ({ person, name }: Props) => {
 };
 
 // Memoize with shallow comparison
-const CardPerson = React.memo(CardPersonComponent, (prev, next) => {
-  // Basic shallow comparison: if person and name are unchanged by reference/value, skip re-render
-  return prev.name === next.name && prev.person === next.person;
+const MemoCardComponent = React.memo(CardComponent, (prev, next) => {
+  // Basic shallow comparison: if details and name are unchanged by reference/value, skip re-render
+  return prev.name === next.name && prev.details === next.details;
 });
 
-export default CardPerson;
+const CardDetails = MemoCardComponent as <T>(
+  props: Props<T>,
+) => React.ReactElement | null;
+
+export default CardDetails;

@@ -1,5 +1,5 @@
 export const routePaths = {
   homepage: '/',
   people: '/people',
-  'star-ships': '/star-ships',
+  starships: '/starships',
 } as const;

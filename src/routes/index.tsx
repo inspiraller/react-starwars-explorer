@@ -18,7 +18,7 @@ export const AppRoutes: IRoutes[] = [
     element: lazy(() => import('@/pages/People')),
   },
   {
-    path: '/star-ships',
-    element: lazy(() => import('@/pages/StarShips')),
+    path: '/starships',
+    element: lazy(() => import('@/pages/Starships')),
   },
 ];
