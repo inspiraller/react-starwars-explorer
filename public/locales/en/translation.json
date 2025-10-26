@@ -38,6 +38,19 @@
       "body": {
         "h1": "Starships"
       }
+    },
+    "vehicles": {
+      "head": {
+        "title": "Starwars Galaxy - Vehicles",
+        "description": "Starwars Galaxy - Vehicles",
+        "og": {
+          "title": "Starwars Galaxy - Vehicles",
+          "description": "Starwars Galaxy - Vehicles"
+        }
+      },
+      "body": {
+        "h1": "Vehicles"
+      }
     }
   },
   "keys": {

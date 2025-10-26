@@ -16,10 +16,10 @@ test('People ', async ({ page }) => {
   // test <Label>Search for  Person</Label> (dynamically loaded)
   await expect(page.getByLabel('Search for Person')).toBeVisible();
 
-  // test <h2>Results 82</h2>
+  // test <h2>Results [number]/h2>
   await expect(page.locator('h2', { hasText: 'Results (82)' })).toBeVisible();
 
-  // test <h3>Luke Skywalker</h3>
+  // test <h3>[name]</h3>
   await expect(page.locator('h3', { hasText: 'Luke Skywalker' })).toBeVisible();
 
   // Test Autocomplete
