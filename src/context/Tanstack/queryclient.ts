@@ -5,7 +5,7 @@ export const MS_24DAYS = 1000 * 60 * 60 * 24 * 24; // 24 days. larges 32 bit sig
 export const MS_DAY = 1000 * 60 * 60 * 24;
 
 // inactive queries are garbage collected (1000 * 60 * 10) = 10 minutes
-export const gcTime = MS_DAY;
+export const gcTime = MS_24DAYS; // For the purpose of this test - cache for 24 days. save unnecessary re-requests to the api.
 export const staleTime = gcTime;
 export const retry = 2;
 export const retryDelay = 1500;

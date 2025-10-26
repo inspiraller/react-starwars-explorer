@@ -5,17 +5,17 @@ export default {
       2,
       'always',
       [
-        'feat',     // New feature
-        'fix',      // Bug fix
-        'docs',     // Documentation changes
-        'style',    // Code style changes (formatting, missing semi-colons, etc)
+        'feat', // New feature
+        'fix', // Bug fix
+        'docs', // Documentation changes
+        'style', // Code style changes (formatting, missing semi-colons, etc)
         'refactor', // Code refactoring
-        'perf',     // Performance improvements
-        'test',     // Adding or updating tests
-        'build',    // Build system or external dependencies
-        'ci',       // CI configuration changes
-        'chore',    // Other changes that don't modify src or test files
-        'revert',   // Revert a previous commit
+        'perf', // Performance improvements
+        'test', // Adding or updating tests
+        'build', // Build system or external dependencies
+        'ci', // CI configuration changes
+        'chore', // Other changes that don't modify src or test files
+        'revert', // Revert a previous commit
       ],
     ],
     'type-case': [2, 'always', 'lower-case'],

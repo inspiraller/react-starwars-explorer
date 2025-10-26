@@ -10,11 +10,15 @@ interface IRoutes {
 
 export const AppRoutes: IRoutes[] = [
   {
+    path: '/',
+    element: lazy(() => import('@/pages/Home')),
+  },
+  {
     path: '/people',
     element: lazy(() => import('@/pages/People')),
   },
   {
-    path: '/',
-    element: lazy(() => import('@/pages/Home')),
+    path: '/star-ships',
+    element: lazy(() => import('@/pages/StarShips')),
   },
 ];

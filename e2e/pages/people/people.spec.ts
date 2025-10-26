@@ -1,0 +1,44 @@
+import { expect, test } from '@playwright/test';
+
+import translation from '@public/locales/en/translation.json' assert { type: 'json' };
+
+test('People ', async ({ page }) => {
+  await page.goto('/people');
+
+  // test <>Loading...</Loading>
+  await expect(page.getByText('Loading')).toBeVisible();
+
+  // test <h1>People</h1>
+  await expect(
+    page.locator('h1', { hasText: translation.page.people.body.h1 }),
+  ).toBeVisible();
+
+  // test <Label>Search for  Person</Label> (dynamically loaded)
+  await expect(page.getByLabel('Search for Person')).toBeVisible();
+
+  // test <h2>Results 82</h2>
+  await expect(page.locator('h2', { hasText: 'Results (82)' })).toBeVisible();
+
+  // test <h3>Luke Skywalker</h3>
+  await expect(page.locator('h3', { hasText: 'Luke Skywalker' })).toBeVisible();
+
+  // Test Autocomplete
+
+  // Focus and type into the Autocomplete input
+  //const autocompleteInput = page.getByRole('combobox');
+
+  const autocompleteInput = page.getByPlaceholder('Start typing a name...');
+  await autocompleteInput.fill('dark');
+
+  // // Wait for the dropdown row to appear
+  const row = page.getByRole('option', { name: 'Biggs Darklighter' });
+  await expect(row).toBeVisible();
+
+  // Click/select the row
+  await row.click();
+
+  // test <h3>Biggs Darklighter</h3>
+  await expect(
+    page.locator('h3', { hasText: 'Biggs Darklighter' }).first(),
+  ).toBeVisible();
+});
