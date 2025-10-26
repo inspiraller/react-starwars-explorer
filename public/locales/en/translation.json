@@ -64,6 +64,19 @@
       "body": {
         "h1": "Species"
       }
+    },
+    "films": {
+      "head": {
+        "title": "Starwars Galaxy - Films",
+        "description": "Starwars Galaxy - Films",
+        "og": {
+          "title": "Starwars Galaxy - Films",
+          "description": "Starwars Galaxy - Films"
+        }
+      },
+      "body": {
+        "h1": "Films"
+      }
     }
   },
   "keys": {
