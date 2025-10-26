@@ -3,4 +3,5 @@ export const routePaths = {
   people: '/people',
   starships: '/starships',
   vehicles: '/vehicles',
+  species: '/species',
 } as const;
