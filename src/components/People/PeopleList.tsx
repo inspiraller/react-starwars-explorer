@@ -9,7 +9,7 @@ import {
   Box,
   CircularProgress, // Import CardHeader
 } from '@mui/material';
-import type { ResponsePeople } from '@/types/Person';
+import type { PeopleObjects, ResponsePeople } from '@/types/Person';
 
 import { FormError } from '../Error/FormError';
 import { useTranslation } from 'react-i18next';
@@ -23,6 +23,7 @@ import { getTotalPages } from '@/context/Tanstack/dynamic/getTotalPages';
 import CardPerson from './CardPerson';
 import { useUpdatePeopleStore } from '@/context/Tanstack/usePeople/useUpdatePeopleStore';
 import { usePeopleStore } from '@/store/zustand/people/people';
+import createPeopleObjects from '@/context/Tanstack/usePeople/createPeopleObjects';
 
 const PeopleList = () => {
   const { t } = useTranslation();
@@ -54,18 +55,15 @@ const PeopleList = () => {
     ? getTotalPages(data?.count, DISPLAY_ITEMS_PER_PAGE)
     : 0;
 
-  const { peopleObjects } = usePeopleStore();
+  const pagePeopleObjects = data
+    ? (createPeopleObjects(data) as PeopleObjects)
+    : {};
 
-  const peopleEntries = peopleObjects ? Object.entries(peopleObjects) : [];
+  const peopleEntries = pagePeopleObjects
+    ? Object.entries(pagePeopleObjects)
+    : [];
 
   const isDisplay = peopleEntries.length > 0 && !isFetching;
-
-  console.log('PeopleList', {
-    isDisplay,
-    peopleEntries,
-    peopleObjects,
-    totalPages,
-  });
 
   return (
     <Box pt={'2rem'}>

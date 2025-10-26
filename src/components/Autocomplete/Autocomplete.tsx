@@ -12,14 +12,16 @@ import { FormError } from '../Error/FormError';
 import { useTranslation } from 'react-i18next';
 import { UseQueryResult } from '@tanstack/react-query';
 
-interface Props {
+export interface SetValues {
+  setNameValue: (name: string | null) => void;
+  nameValue: string | null;
+}
+interface Props extends SetValues {
   type: 'Person' | 'Starship';
   isFetching?: boolean;
   isSuccess?: boolean;
   error?: UseQueryResult<any, Error> | undefined;
   names: string[];
-  setValue: React.Dispatch<React.SetStateAction<string | null>>;
-  value: string | null;
 }
 
 // ✅ Custom Popper: ensure it matches anchor width + full opacity
@@ -41,8 +43,8 @@ const Autocomplete = ({
   error,
   isSuccess,
   names,
-  value,
-  setValue,
+  nameValue,
+  setNameValue,
 }: Props) => {
   const { t } = useTranslation();
   const [inputValue, setInputValue] = React.useState('');
@@ -78,8 +80,8 @@ const Autocomplete = ({
           <MuiAutocomplete<string, false, false, false>
             sx={{ width: '100%' }}
             options={names}
-            value={value}
-            onChange={(_event, newValue) => setValue(newValue)}
+            value={nameValue}
+            onChange={(_event, newValue) => setNameValue(newValue)}
             inputValue={inputValue}
             onInputChange={(_event, newInputValue) =>
               setInputValue(newInputValue)
@@ -94,12 +96,14 @@ const Autocomplete = ({
                 .slice(0, 10);
             }}
             PopperComponent={CustomPopper}
-            PaperProps={{
-              sx: {
-                backgroundColor: (theme) => theme.palette.background.paper, // use theme background
-                opacity: 1,
-                boxShadow: 3,
-                backdropFilter: 'none', // disable any blur
+            slotProps={{
+              paper: {
+                sx: {
+                  backgroundColor: (theme) => theme.palette.background.paper, // use theme background
+                  opacity: 1,
+                  boxShadow: 3,
+                  backdropFilter: 'none', // disable any blur
+                },
               },
             }}
             renderInput={(params) => (

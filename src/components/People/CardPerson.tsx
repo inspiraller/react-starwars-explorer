@@ -7,24 +7,22 @@ interface Props {
   name: string | null;
 }
 
-const CardPerson = ({ person, name }: Props) => {
-  return person ? (
+const CardPersonComponent = ({ person, name }: Props) => {
+  if (!person) return null;
+
+  return (
     <Card sx={{ height: '100%' }}>
-      {/* Replaced Typography inside CardContent with CardHeader */}
       <CardHeader
         title={name}
         titleTypographyProps={{
           variant: 'h6',
-          // Apply color directly to the Typography component rendering the title
           sx: {
             px: '2rem',
             color: 'var(--text-default-color)',
             background: 'var(--bg-names)',
           },
         }}
-        sx={{
-          p: 0, // This styling still works for the CardHeader container padding
-        }}
+        sx={{ p: 0 }}
       />
 
       <CardContent>
@@ -62,7 +60,13 @@ const CardPerson = ({ person, name }: Props) => {
         </Grid>
       </CardContent>
     </Card>
-  ) : null;
+  );
 };
+
+// Memoize with shallow comparison
+const CardPerson = React.memo(CardPersonComponent, (prev, next) => {
+  // Basic shallow comparison: if person and name are unchanged by reference/value, skip re-render
+  return prev.name === next.name && prev.person === next.person;
+});
 
 export default CardPerson;
