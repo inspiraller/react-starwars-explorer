@@ -71,6 +71,15 @@ const Header = () => {
         >
           {t('Species')}
         </Link>
+
+        <Link
+          component={RouterLink}
+          to={routePaths['films']}
+          color='primary'
+          underline='hover'
+        >
+          {t('Films')}
+        </Link>
       </Box>
     </Toolbar>
   );
