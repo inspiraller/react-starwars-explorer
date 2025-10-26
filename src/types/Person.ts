@@ -1,3 +1,10 @@
+export interface ResponsePeople {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: Person[];
+}
+
 export interface Person {
   name: string;
   height: string;
@@ -16,3 +23,5 @@ export interface Person {
   edited: string;
   url: string;
 }
+
+export type PeopleObjects = Record<string, Person>;

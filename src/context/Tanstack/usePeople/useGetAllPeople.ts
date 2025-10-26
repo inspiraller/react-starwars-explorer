@@ -1,8 +1,9 @@
 import { usePeopleStore } from '@/store/zustand/people/people';
 import useGetAllPages from '../dynamic/useGetAllPages';
 import useGetFirstPage from '../dynamic/useGetFirstPage';
-import { URL_API_PATH, type ResponsePeople } from './const';
+import { URL_API_PATH } from './const';
 import { getPersonsArray } from './getPersonsArray';
+import { ResponsePeople } from '@/types/Person';
 
 const url = URL_API_PATH;
 
@@ -10,7 +11,12 @@ const useGetAllPeople = () => {
   const { createPeople, updatePeople } = usePeopleStore();
 
   // First, get the initial page to determine total count
-  const { data: dataFirstPage } = useGetFirstPage<ResponsePeople>({
+  const {
+    data: dataFirstPage,
+    isFetching: isFetchingFirst,
+    error: errorFirst,
+    isSuccess: isSuccessFirst,
+  } = useGetFirstPage<ResponsePeople>({
     url,
     callback: (response) => {
       // On callback - CREATE zustand store of names
@@ -42,11 +48,15 @@ const useGetAllPeople = () => {
   // Wait for all queries to be successful
   const allSuccess = results.every((r) => r.isSuccess);
   const isFetching = results.some((r) => r.isFetching);
-  const error = results.some((r) => r.error);
-
+  const error = results.find((r) => r.error);
   const dataAll = allSuccess ? results.map((item) => item.data) : null;
 
-  return { data: dataAll, isSuccess: allSuccess, isFetching, error };
+  return {
+    data: dataAll,
+    isSuccess: allSuccess,
+    isFetching: isFetching,
+    error,
+  };
 };
 
 export default useGetAllPeople;

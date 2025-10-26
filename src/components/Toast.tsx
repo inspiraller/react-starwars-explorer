@@ -31,8 +31,7 @@ export const Toast = ({ open, handleCloseToast, children }: Props) => {
         severity='success'
         sx={{
           width: '100%',
-          background: '#080',
-          color: 'white',
+          background: 'var(--bg-warning)',
           fontWeight: 'bold',
         }}
       >

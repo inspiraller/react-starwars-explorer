@@ -19,54 +19,45 @@ export const Loader = () => {
 
 const Header = () => {
   const { t } = useTranslation();
-  const { toggleMode, mode } = useThemeMode();
 
   return (
-    <AppBar position='static'>
-      <Toolbar sx={{ justifyContent: 'space-between', dislay: 'flex' }}>
+    <Toolbar
+      sx={{
+        justifyContent: 'space-between',
+        dislay: 'flex',
+        backgroundColor: 'var(--bg-default)',
+      }}
+    >
+      <Link
+        component={RouterLink}
+        to={routePaths.homepage}
+        color='primary'
+        underline='hover'
+        variant='h6'
+      >
+        <Typography>{t('Star Wars Galaxy')}</Typography>
+      </Link>
+
+      <Box display={'flex'} gap={'1rem'}>
         <Link
           component={RouterLink}
-          to={routePaths.homepage}
+          to={routePaths.people}
           color='primary'
           underline='hover'
-          variant='h6'
         >
-          <Typography>{t('Star Wars Galaxy')}</Typography>
+          {t('People')}
         </Link>
 
-        <Box display={'flex'} gap={'1rem'}>
-          <Link
-            component={RouterLink}
-            to={routePaths.people}
-            color='primary'
-            underline='hover'
-          >
-            {t('People')}
-          </Link>
-
-          <Link
-            component={RouterLink}
-            to={routePaths['star-ships']}
-            color='primary'
-            underline='hover'
-          >
-            {t('Starships')}
-          </Link>
-        </Box>
-        <Button
-          color='secondary'
-          variant='text'
-          onClick={toggleMode}
-          aria-label={mode === 'light' ? t('Dark Side') : t('Light Side')}
+        <Link
+          component={RouterLink}
+          to={routePaths['star-ships']}
+          color='primary'
+          underline='hover'
         >
-          {mode === 'light' ? (
-            <BsMoonFill size={'2rem'} />
-          ) : (
-            <BsMoon size={'2rem'} />
-          )}
-        </Button>
-      </Toolbar>
-    </AppBar>
+          {t('Starships')}
+        </Link>
+      </Box>
+    </Toolbar>
   );
 };
 

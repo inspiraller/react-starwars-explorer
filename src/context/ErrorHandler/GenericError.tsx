@@ -37,7 +37,6 @@ export const GenericError = ({ error, errorInfo, handleRetry }: Props) => {
                 fontSize: '0.75rem',
                 overflow: 'auto',
                 maxHeight: '200px',
-                backgroundColor: 'rgba(0,0,0,0.1)',
                 padding: 1,
                 borderRadius: 1,
               }}

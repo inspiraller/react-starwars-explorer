@@ -1,4 +1,4 @@
-import { ResponsePeople } from './const';
+import { ResponsePeople } from '@/types/Person';
 
 export const getPersonsArray = (result: ResponsePeople[] | null) => {
   return result?.reduce((acc, cur) => {
