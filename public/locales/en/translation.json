@@ -51,6 +51,19 @@
       "body": {
         "h1": "Vehicles"
       }
+    },
+    "species": {
+      "head": {
+        "title": "Starwars Galaxy - Species",
+        "description": "Starwars Galaxy - Species",
+        "og": {
+          "title": "Starwars Galaxy - Species",
+          "description": "Starwars Galaxy - Species"
+        }
+      },
+      "body": {
+        "h1": "Species"
+      }
     }
   },
   "keys": {
