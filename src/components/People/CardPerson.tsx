@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, Typography, Grid, CardHeader } from '@mui/material';
+import { Card, CardContent, Typography, Grid, CardHeader, Box } from '@mui/material';
 import { Person } from '@/types/Person';
 
 interface Props {
@@ -28,38 +28,29 @@ const CardPersonComponent = ({ person, name }: Props) => {
       />
 
       <CardContent>
-        <Grid container spacing={1}>
-          {Object.entries(person).map(([k, v]) => {
-            if (k === 'name') return null;
-            const displayValue = Array.isArray(v) ? v.join(', ') : v;
-            return (
-              <React.Fragment key={k}>
-                <Grid
-                  item
-                  xs={4}
-                  sx={{
-                    borderBottom: '1px solid black',
-                    textAlign: 'right',
-                  }}
-                >
-                  <Typography
-                    variant='body2'
-                    sx={{
-                      fontWeight: 500,
-                      textTransform: 'uppercase',
-                      color: 'var(--text-color-th)',
-                    }}
-                  >
-                    {k}:
-                  </Typography>
-                </Grid>
-                <Grid item xs={8} sx={{ borderBottom: '1px solid black' }}>
-                  <Typography variant='body2'>{displayValue}</Typography>
-                </Grid>
-              </React.Fragment>
-            );
-          })}
-        </Grid>
+        {Object.entries(person).map(([k, v]) => {
+          if (k === 'name') return null;
+          const displayValue = Array.isArray(v) ? v.join(', ') : v;
+          return (
+            <Box component={'dl'} key={k} display={'flex'} gap={'1rem'}>
+              <Typography
+                variant='body2'
+                component={'dt'}
+                sx={{
+                  fontWeight: 500,
+                  textTransform: 'uppercase',
+                  color: 'var(--text-color-th)',
+                }}
+              >
+                {k}:
+              </Typography>
+
+              <Typography component={'dd'} variant='body2'>
+                {displayValue}
+              </Typography>
+            </Box>
+          );
+        })}
       </CardContent>
     </Card>
   );
