@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, Typography, Grid, CardHeader, Box } from '@mui/material';
+import { Card, CardContent, Typography, CardHeader, Box } from '@mui/material';
 import { Person } from '@/types/Person';
 
 interface Props {
