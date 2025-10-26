@@ -1,22 +1,33 @@
+import { PeopleObjects } from '@/types/Person';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 interface PeopleState {
-  people: string[];
-  createPeople: (names: string[]) => void;
-  updatePeople: (names: string[]) => void;
+  peopleNames: string[];
+  peopleObjects: PeopleObjects;
+  updatePeopleNames: (names: string[]) => void;
+  updatePeopleObjects: (people: PeopleObjects) => void;
 }
 
 export const usePeopleStore = create<PeopleState>()(
   persist(
     (set) => ({
-      people: [],
-      createPeople: (names) => set({ people: names }),
-      updatePeople: (names: string[]) =>
+      peopleNames: [],
+      peopleObjects: {},
+      updatePeopleNames: (names: string[]) =>
         set((state) => {
-          const toUpdate = state.people.slice().concat(names);
+          const toUpdate = state.peopleNames.slice().concat(names);
           return {
-            people: toUpdate,
+            peopleNames: [...new Set(toUpdate)], // ,make unique
+          };
+        }),
+
+      updatePeopleObjects: (peopleObjects: PeopleObjects) =>
+        set((state) => {
+          const newPeople = { ...state.peopleObjects, ...peopleObjects };
+          return {
+            ...state,
+            peopleObjects: newPeople,
           };
         }),
     }),

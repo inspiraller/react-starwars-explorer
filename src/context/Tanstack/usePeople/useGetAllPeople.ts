@@ -1,48 +1,33 @@
-import { usePeopleStore } from '@/store/zustand/people/people';
 import useGetAllPages from '../dynamic/useGetAllPages';
 import useGetFirstPage from '../dynamic/useGetFirstPage';
-import { URL_API_PATH } from './const';
-import { getPersonsArray } from './getPersonsArray';
+import { DISPLAY_ITEMS_PER_PAGE, URL_API_PATH } from './const';
+
 import { ResponsePeople } from '@/types/Person';
+import { getTotalPages } from '../dynamic/getTotalPages';
+
+import { useUpdatePeopleStore } from './useUpdatePeopleStore';
 
 const url = URL_API_PATH;
 
 const useGetAllPeople = () => {
-  const { createPeople, updatePeople } = usePeopleStore();
+  const { callback } = useUpdatePeopleStore();
 
   // First, get the initial page to determine total count
-  const {
-    data: dataFirstPage,
-    isFetching: isFetchingFirst,
-    error: errorFirst,
-    isSuccess: isSuccessFirst,
-  } = useGetFirstPage<ResponsePeople>({
+  const { data: dataFirstPage } = useGetFirstPage<ResponsePeople>({
     url,
-    callback: (response) => {
-      // On callback - CREATE zustand store of names
-      const first = [response];
-      const names = getPersonsArray(first) as string[];
-      createPeople(names);
-      return response;
-    },
+    callback,
   });
 
   // Calculate total pages based on count (assuming 10 items per page for SWAPI)
-  const totalPages = dataFirstPage?.count
-    ? Math.ceil(dataFirstPage.count / 10)
+  const totalPages = dataFirstPage
+    ? getTotalPages(dataFirstPage?.count, DISPLAY_ITEMS_PER_PAGE)
     : 0;
 
   // Create queries for all pages
   const results = useGetAllPages<ResponsePeople>({
     url,
     totalPages,
-    callback: (response) => {
-      // on each page callback, UPDATE zustand with more names.
-      const each = [response];
-      const names = getPersonsArray(each) as string[];
-      updatePeople(names);
-      return response;
-    },
+    callback,
   });
 
   // Wait for all queries to be successful
@@ -56,6 +41,7 @@ const useGetAllPeople = () => {
     isSuccess: allSuccess,
     isFetching: isFetching,
     error,
+    totalPages,
   };
 };
 

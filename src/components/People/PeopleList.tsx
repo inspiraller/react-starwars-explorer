@@ -1,8 +1,5 @@
 import React, { useState, Activity } from 'react';
 import {
-  Card,
-  CardContent,
-  Typography,
   Grid,
   Pagination,
   Select,
@@ -10,22 +7,30 @@ import {
   FormControl,
   InputLabel,
   Box,
-  CardHeader, // Import CardHeader
+  CircularProgress, // Import CardHeader
 } from '@mui/material';
-import type { PeopleObjects } from '@/types/Person';
+import type { ResponsePeople } from '@/types/Person';
 
-interface PeopleListProps {
-  people: PeopleObjects | null;
-}
+import { FormError } from '../Error/FormError';
+import { useTranslation } from 'react-i18next';
+import useGetPage from '@/context/Tanstack/dynamic/useGetPage';
+import {
+  DISPLAY_ITEMS_PER_PAGE,
+  URL_API_PATH,
+} from '@/context/Tanstack/usePeople/const';
+import { getTotalPages } from '@/context/Tanstack/dynamic/getTotalPages';
 
-const PeopleList = ({ people }: PeopleListProps) => {
-  const peopleEntries = people ? Object.entries(people) : [];
+import CardPerson from './CardPerson';
+import { useUpdatePeopleStore } from '@/context/Tanstack/usePeople/useUpdatePeopleStore';
+import { usePeopleStore } from '@/store/zustand/people/people';
+
+const PeopleList = () => {
+  const { t } = useTranslation();
+  const { callback } = useUpdatePeopleStore();
+
+  // local states
   const [page, setPage] = useState(1);
-  const [perPage, setPerPage] = useState(10);
-
-  const totalPages = Math.ceil(peopleEntries.length / perPage);
-  const startIdx = (page - 1) * perPage;
-  const currentEntries = peopleEntries.slice(startIdx, startIdx + perPage);
+  const [perPage, setPerPage] = useState(DISPLAY_ITEMS_PER_PAGE);
 
   const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
@@ -38,9 +43,37 @@ const PeopleList = ({ people }: PeopleListProps) => {
     setPage(1); // reset to first page when changing count
   };
 
+  // Tanstack ... get data.
+  const { isFetching, error, data } = useGetPage<ResponsePeople>({
+    url: URL_API_PATH,
+    page,
+    callback,
+  });
+
+  const totalPages = data
+    ? getTotalPages(data?.count, DISPLAY_ITEMS_PER_PAGE)
+    : 0;
+
+  const { peopleObjects } = usePeopleStore();
+
+  const peopleEntries = peopleObjects ? Object.entries(peopleObjects) : [];
+
+  const isDisplay = peopleEntries.length > 0 && !isFetching;
+
+  console.log('PeopleList', {
+    isDisplay,
+    peopleEntries,
+    peopleObjects,
+    totalPages,
+  });
+
   return (
     <Box pt={'2rem'}>
-      <Activity mode={people ? 'visible' : 'hidden'}>
+      {isFetching ? <CircularProgress /> : null}
+      {error ? (
+        <FormError>{t(`Error displaying this page ${1}`)}</FormError>
+      ) : null}
+      <Activity mode={isDisplay ? 'visible' : 'hidden'}>
         {/* Controls */}
         <Box
           sx={{
@@ -75,53 +108,9 @@ const PeopleList = ({ people }: PeopleListProps) => {
 
         {/* Cards */}
         <Grid container spacing={2}>
-          {currentEntries.map(([key, person]) => (
+          {peopleEntries.map(([key, person]) => (
             <Grid item xs={12} md={6} lg={4} key={key}>
-              <Card sx={{ height: '100%' }}>
-                {/* Replaced Typography inside CardContent with CardHeader */}
-                <CardHeader
-                  title={key}
-                  titleTypographyProps={{
-                    variant: 'h6',
-                    // Apply color directly to the Typography component rendering the title
-                    sx: {
-                      px: '2rem',
-                      color: 'var(--text-default-color)',
-                      background: 'var(--bg-names)',
-                    },
-                  }}
-                  sx={{
-                    p: 0, // This styling still works for the CardHeader container padding
-                  }}
-                />
-
-                <CardContent>
-                  <Grid container spacing={1}>
-                    {Object.entries(person).map(([k, v]) => {
-                      if (k === 'name') return null;
-                      const displayValue = Array.isArray(v) ? v.join(', ') : v;
-                      return (
-                        <React.Fragment key={k}>
-                          <Grid item xs={4}>
-                            <Typography
-                              variant='body2'
-                              color='text.secondary'
-                              sx={{ fontWeight: 500 }}
-                            >
-                              {k}:
-                            </Typography>
-                          </Grid>
-                          <Grid item xs={8}>
-                            <Typography variant='body2'>
-                              {displayValue}
-                            </Typography>
-                          </Grid>
-                        </React.Fragment>
-                      );
-                    })}
-                  </Grid>
-                </CardContent>
-              </Card>
+              <CardPerson person={person} name={key} />
             </Grid>
           ))}
         </Grid>

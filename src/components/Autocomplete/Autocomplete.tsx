@@ -3,8 +3,10 @@ import {
   Box,
   CircularProgress,
   TextField,
+  Popper, // Import Popper
+  PopperProps, // Import PopperProps for typing
 } from '@mui/material';
-import React, { Activity } from 'react';
+import React from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { FormError } from '../Error/FormError';
 import { useTranslation } from 'react-i18next';
@@ -19,7 +21,21 @@ interface Props {
   setValue: React.Dispatch<React.SetStateAction<string | null>>;
   value: string | null;
 }
-export const Autocomplete = ({
+
+// ✅ Custom Popper: ensure it matches anchor width + full opacity
+const CustomPopper = (props: PopperProps) => (
+  <Popper
+    {...props}
+    style={{
+      ...props.style,
+      zIndex: 1500,
+      background: 'var(--bg-default)',
+      width: (props.anchorEl as HTMLElement)?.clientWidth ?? '100%', // match width of input
+    }}
+  />
+);
+
+const Autocomplete = ({
   type,
   isFetching,
   error,
@@ -34,19 +50,20 @@ export const Autocomplete = ({
   return (
     <Box
       sx={{
-        position: 'relative', // important: parent for absolute positioning
+        position: 'relative',
         width: '100%',
         height: '6rem',
       }}
     >
-      {/* Overlayed autocomplete container */}
+      {/* This Box is necessary for your absolute positioning setup, but 
+          it might be the cause of the clipping if its children are too tall. */}
       <Box
         sx={{
           position: 'absolute',
           top: 0,
           left: 0,
           width: '100%',
-          zIndex: 20, // ensure it overlays other content
+          zIndex: 20,
         }}
       >
         {isFetching && (
@@ -58,7 +75,7 @@ export const Autocomplete = ({
         {error && <FormError>{t('Error. Cannot load Search')}</FormError>}
 
         {isSuccess && (
-          <MuiAutocomplete
+          <MuiAutocomplete<string, false, false, false>
             sx={{ width: '100%' }}
             options={names}
             value={value}
@@ -75,6 +92,15 @@ export const Autocomplete = ({
                   option.toLowerCase().includes(lowerCaseInput),
                 )
                 .slice(0, 10);
+            }}
+            PopperComponent={CustomPopper}
+            PaperProps={{
+              sx: {
+                backgroundColor: (theme) => theme.palette.background.paper, // use theme background
+                opacity: 1,
+                boxShadow: 3,
+                backdropFilter: 'none', // disable any blur
+              },
             }}
             renderInput={(params) => (
               <TextField
@@ -99,3 +125,5 @@ export const Autocomplete = ({
     </Box>
   );
 };
+
+export default Autocomplete;

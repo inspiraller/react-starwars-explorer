@@ -1,5 +1,8 @@
 import { createTheme, ThemeOptions } from '@mui/material/styles';
 
+const getCSSVar = (name: string, fallback: string) =>
+  getComputedStyle(document.documentElement).getPropertyValue(name) || fallback;
+
 export const baseTheme: ThemeOptions = {
   typography: {
     fontFamily: '"FunnelSans", "Roboto", "Helvetica", "Arial", sans-serif',
@@ -33,11 +36,11 @@ export const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     background: {
-      default: 'var(--bg-default)', // body background
+      default: getCSSVar('var(--bg-default)', '#000'), // body background
       paper: 'transparent', // AppBar, Card, Paper background
     },
     text: {
-      primary: 'var(--text-color-default)',
+      primary: getCSSVar('var(--text-color-default)', '#efefef'),
     },
   },
   components: {

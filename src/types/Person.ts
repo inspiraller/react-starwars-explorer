@@ -24,4 +24,4 @@ export interface Person {
   url: string;
 }
 
-export type PeopleObjects = Record<string, Person>;
+export type PeopleObjects = Record<string, Omit<Person, 'name'>>;
